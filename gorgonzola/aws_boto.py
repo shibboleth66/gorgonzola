@@ -62,7 +62,7 @@ class Session():
         self.boto = self.session.resource(self.service_name)
 
         # Create 'client' object of requried.
-        if self.type.lower() is 'client':
+        if self.type.lower() == 'client':
             self.boto = self.boto.meta.client
 
     #  ==========================================================
