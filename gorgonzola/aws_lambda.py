@@ -35,6 +35,16 @@ class Invoke(Session):
         self.payload = kwargs.get('Payload', {})
         self.invocation_type = kwargs.get('InvocationType', 'RequestResponse')
 
+        # Set parameters for super init.
+        super_params = {
+            'ServiceName': self.service_name,
+            'RoleArn': self.role_arn,
+            'RegionName': self.region_name
+        }
+
+        # Initialise parent object.
+        super().__init__(**super_params)
+
         # Invoke function.
         self._create_session()
         self._invoke_function()
