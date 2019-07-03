@@ -2,7 +2,7 @@ import json
 from .aws_boto import Session
 
 
-class Invoke(Session):
+class InvokeFunction(Session):
     """Invoke Lambda Function
 
     Invoke Lambda function in any account.
@@ -25,6 +25,7 @@ class Invoke(Session):
 
         # Global Parameters.
         self.service_name = 'lambda'
+        self.service_interface = 'client'
 
         # Required Parameters.
         self.role_arn = kwargs.get('RoleArn', None)
@@ -37,6 +38,7 @@ class Invoke(Session):
 
         # Set parameters for super init.
         super_params = {
+            'ServiceInterface': self.service_interface,
             'ServiceName': self.service_name,
             'RoleArn': self.role_arn,
             'RegionName': self.region_name
@@ -46,21 +48,7 @@ class Invoke(Session):
         super().__init__(**super_params)
 
         # Invoke function.
-        self._create_session()
         self._invoke_function()
-
-    #  ==========================================================
-    def _create_session(self):
-
-        # Set session parameters.
-        params = {
-            'ServiceName': self.service_name,
-            'RoleArn': self.role_arn,
-            'RegionName': self.region_name
-        }
-
-        # Create boto session
-        self.boto = Session(**params)
 
     #  ==========================================================
     def _invoke_function(self):
@@ -75,6 +63,12 @@ class Invoke(Session):
         # Invoke lambda function.
         response = self.boto.invoke(**params)
 
-        # Return response based on invocation type.
+        # Capture response based on invocation type.
         if self.invocation_type == "RequestResponse":
-            return json.loads(response['Payload'].read())
+            self.results = json.loads(response['Payload'].read())
+
+    #  ==========================================================
+    def get(self):
+
+        # Return results object.
+        return self.results
