@@ -40,7 +40,7 @@ class Session():
 
         # Optional Parameters (with defaults)
         self.region_name = kwargs.get('RegionName', 'eu-west-2')
-        self.type = kwargs.get('ServiceInterface', 'client')
+        self.service_interface = kwargs.get('ServiceInterface', 'client')
         self.duration = kwargs.get('Duration', 900)
 
         # Begin params doctionary.
@@ -51,19 +51,6 @@ class Session():
         # Make boto session.
         self._generate_credentials()
         self._create_session()
-
-    #  ==========================================================
-    def _create_session(self):
-
-        # Create sessions object.
-        self.session = boto3.session.Session(**self.params)
-
-        # Create default 'resource' object.
-        self.boto = self.session.resource(self.service_name)
-
-        # Create 'client' object of requried.
-        if self.type.lower() == 'client':
-            self.boto = self.boto.meta.client
 
     #  ==========================================================
     def _generate_credentials(self):
@@ -79,6 +66,24 @@ class Session():
 
         # Update object parameters with credentials.
         self.params.update(**creds)
+
+    #  ==========================================================
+    def _create_session(self):
+
+        # Create session object.
+        self.session = boto3.session.Session(**self.params)
+
+        # Create required boto object.
+        if self.service_interface.lower() == 'client':
+            self.boto = self.session.client(self.service_name)
+
+        elif self.service_interface.lower() == 'response':
+            self.boto = self.session.resource(self.service_name)
+
+        else:
+            raise Exception("Unknown Service Interface: {}".format(
+                self.service_interface
+            ))
 
     #  ==========================================================
     def __str__(self):
