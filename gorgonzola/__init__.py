@@ -1,9 +1,8 @@
-name = 'gorgonzola'
-
-# from .aws_s3_bucket import Bucket
-# from .aws_iam_idp import IdentityProvider
-# from .aws_iam_role import Role
-from .aws_boto import Session
-from .aws_sts import Credentials
+from .aws_boto_session import BotoSession
+from .aws_sts_credentials import StsCredentials
+from .aws_lambda_function import LambdaFunction
 from .aws_s3_bucket import Bucket
 from .aws_iam_role import Role
+from .aws_ssm_globals import SsmGlobals
+
+name = 'gorgonzola'
