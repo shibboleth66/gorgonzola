@@ -1,7 +1,8 @@
 import boto3
+import sys
 
 
-class StsCredentials():
+class Credentials():
     """Generate STS Credentials
 
     Assume Role using STS service to return temporary credentials.
@@ -18,7 +19,10 @@ class StsCredentials():
         creds = gorgonzola.Credentials(
             'RoleArn': 'arn:aws:iam::123456789012:role/OrganizationAccountAccessRole',
             'Duration': 1200
-        ).get()
+        )
+
+        Return credentials dictionary
+        creds.get()
     """
 
     #  ==========================================================
@@ -30,31 +34,9 @@ class StsCredentials():
         # Optional Parameters (with defaults)
         self.duration = kwargs.get('Duration', 900)
 
-        # self._validate_id()
-        # self._validate_role()
-
-        # Generate credentials.
-        # self._connect_to_sts()
-        # self._assume_role()
-
     #  ==========================================================
     def __connect_to_sts(self):
         self.boto = boto3.client('sts')
-
-    # #  ==========================================================
-    # def _validate_id(self):
-    #     if self.acc_id is None:
-    #         raise Exception("Account Id missing")
-
-    # #  ==========================================================
-    # def _validate_role(self):
-    #     if self.role is not None:
-    #         if 'arn' not in self.role:
-    #             self.role = "{}:{}:{}/{}".format(
-    #                 'arn:aws:iam:', self.acc_id, 'role', self.role
-    #             )
-    #     else:
-    #         raise Exception("IAM Role missing")
 
     #  ==========================================================
     def __assume_role(self):
@@ -67,10 +49,16 @@ class StsCredentials():
         }
 
         # Create credentials object.
-        self.creds = self.boto.assume_role(**params).get('Credentials', {})
+        try:
+            self.creds = self.boto.assume_role(**params).get('Credentials', {})
+        except Exception as e:
+            print("* Error Assuming Role: {}".format(self.role))
+            print("* Boto Error: {}".format(e))
+            sys.exit()
 
     #  ==========================================================
-    def generate(self):
+    # Generate credentials.
+    def get(self):
 
         self.__connect_to_sts()
         self.__assume_role()
