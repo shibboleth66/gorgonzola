@@ -31,6 +31,7 @@ class LambdaFunction(BotoSession):
     """
 
     # ==========================================================
+    # Initialize LambdaFunction object.
     def __init__(self, **kwargs):
 
         # Global Parameters.
@@ -57,28 +58,35 @@ class LambdaFunction(BotoSession):
         # Initialise parent object.
         super().__init__(**super_params)
 
-        # Invoke function.
-        # self._invoke_function()
+        # Automatically invoke function.
+        self.invoke()
 
     # ==========================================================
+    # Invoke function with passed parameters.
+    # Response captured is based on InvocationType.
     def invoke(self):
 
-        # Set invocation parameters.
         params = {
             'FunctionName': self.function_name,
             'InvocationType': self.invocation_type,
-            'Payload': json.dumps(self.payload)
+            'Payload': json.dumps(
+                self.payload
+            )
         }
 
-        # Invoke lambda function.
         response = self.boto.invoke(**params)
 
-        # Capture response based on invocation type.
         if self.invocation_type == "RequestResponse":
-            self.results = json.loads(response['Payload'].read())
+            self.results = json.loads(
+                response['Payload'].read()
+            )
+        else:
+            self.results = {
+                'RequestId': response['ResponseMetadata']['RequestId'],
+                'StatusCode': response['StatusCode']
+            }
 
     # ==========================================================
+    # Return results object.
     def get_response(self):
-
-        # Return results object.
         return self.results
