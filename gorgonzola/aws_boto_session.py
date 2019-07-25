@@ -1,5 +1,5 @@
 import boto3
-from .aws_sts_credentials import StsCredentials
+from .aws_sts_credentials import Credentials
 
 
 class BotoSession():
@@ -49,11 +49,11 @@ class BotoSession():
         }
 
         # Make boto session.
-        self.__generate_credentials()
-        self.__create_session()
+        self.__get_creds()
+        self.__get_session()
 
     # ==========================================================
-    def __generate_credentials(self):
+    def __get_creds(self):
 
         # Set parameters for credential generation.
         params = {
@@ -62,13 +62,13 @@ class BotoSession():
         }
 
         # Generate STS credentials.
-        creds = StsCredentials(**params).generate()
+        creds = Credentials(**params).get()
 
         # Update object parameters with credentials.
         self.params.update(**creds)
 
     # ==========================================================
-    def __create_session(self):
+    def __get_session(self):
 
         # Create session object.
         self.session = boto3.session.Session(**self.params)
@@ -77,16 +77,10 @@ class BotoSession():
         if self.service_interface.lower() == 'client':
             self.boto = self.session.client(self.service_name)
 
-        elif self.service_interface.lower() == 'response':
+        elif self.service_interface.lower() == 'resource':
             self.boto = self.session.resource(self.service_name)
 
         else:
             raise Exception("Unknown Service Interface: {}".format(
                 self.service_interface
             ))
-
-    # ==========================================================
-    def __str__(self):
-        return "Boto Session for: {}/{}/{}/{}".format(
-            self.type, self.service_name, self.region_name, self.role_arn
-        )
