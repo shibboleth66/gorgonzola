@@ -8,8 +8,18 @@ arn = "{}:{}:{}/{}".format(
         'arn:aws:iam:', account, 'role', role
     )
 
-org = gorgonzola.Organizations(
+# org = gorgonzola.Organizations(
+#     RoleArn=arn
+# )
+
+# print(org.get_accounts_list())
+
+orgs = gorgonzola.Organizations(
     RoleArn=arn
 )
 
-print(org.get_accounts_list())
+for detail_level in ['low', 'high']:
+
+    print(orgs.get_info(
+        DetailLevel=detail_level
+    ))

@@ -1,4 +1,3 @@
-import json
 import sys
 sys.path.insert(0, '../gorgonzola')
 import gorgonzola
@@ -9,13 +8,12 @@ arn = "{}:{}:{}/{}".format(
         'arn:aws:iam:', account, 'role', role
     )
 
-
-roles = gorgonzola.Roles(
+buckets = gorgonzola.Buckets(
     RoleArn=arn
 )
 
 for detail_level in ['low', 'high']:
 
-    print(roles.get_info(
+    print(buckets.get_info(
         DetailLevel=detail_level
     ))

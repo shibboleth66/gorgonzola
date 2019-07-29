@@ -10,4 +10,8 @@ arn = "{}:{}:{}/{}".format(
 
 regions = gorgonzola.Regions()
 
-print(regions.get_list())
+for detail_level in ['low', 'high']:
+
+    print(regions.get_info(
+        DetailLevel=detail_level
+    ))
