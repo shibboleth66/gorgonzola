@@ -10,6 +10,8 @@ class Roles(BotoSession):
         # Global Parameters.
         self.service_name = 'iam'
         self.role_arn = kwargs.get('RoleArn', None)
+        self.info = []
+        self.list = []
 
         # Set parameters for super init.
         super_params = {
@@ -23,8 +25,7 @@ class Roles(BotoSession):
 
     # ==========================================================
     # Generate list of roles
-    def __query_all_roles(self):
-        self.info = []
+    def _query_iam_for_role_data(self):
 
         resp = self.boto.list_roles()
 
@@ -39,20 +40,25 @@ class Roles(BotoSession):
             self.info.extend(resp['Roles'])
 
     # ==========================================================
-    # Return account info (list of dicts)
-    def get_roles(self):
-        self.__query_all_roles()
+    # Return low detail level
+    def get_detail_low(self):
 
-        return self.info
-
-    # ==========================================================
-    # Return account list
-    def get_roles_list(self):
-        self.list = []
-
-        for i in self.get_roles():
+        for i in self.info:
             self.list.append(
                 i.get('RoleName', None)
             )
 
         return self.list
+
+    # ==========================================================
+    # Get info
+    def get_info(self, DetailLevel='low'):
+
+        # Auto-generate data.
+        self._query_iam_for_role_data()
+
+        # Return level of data based on arguments.
+        if DetailLevel.lower() == 'high':
+            return self.info
+        else:
+            return self.get_detail_low()

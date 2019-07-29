@@ -31,11 +31,11 @@ class DynamodbTable(BotoSession):
         super().__init__(**super_params)
 
         # Bind to Dynamodb Table
-        self.__bind()
+        self._bind_to_dynamodb_table()
 
     # ==========================================================
     # Bind to Dynamodb Table
-    def __bind(self):
+    def _bind_to_dynamodb_table(self):
 
         try:
             self.table = self.boto.Table(self.table_name)

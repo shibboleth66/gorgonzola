@@ -10,6 +10,8 @@ class Buckets(BotoSession):
         # Global Parameters.
         self.service_name = 's3'
         self.role_arn = kwargs.get('RoleArn', None)
+        self.info = []
+        self.list = []
 
         # Set parameters for super init.
         super_params = {
@@ -23,9 +25,7 @@ class Buckets(BotoSession):
 
     # ==========================================================
     # Generate list of buckets
-    def __query_all_buckets(self):
-        self.info = []
-
+    def _query_s3_for_bucket_data(self):
         resp = self.boto.list_buckets()
 
         self.info.extend(resp['Buckets'])
@@ -39,20 +39,24 @@ class Buckets(BotoSession):
             self.info.extend(resp['Buckets'])
 
     # ==========================================================
-    # Return  info (list of dicts)
-    def get_buckets(self):
-        self.__query_all_buckets()
-
-        return self.info
-
-    # ==========================================================
-    # Return  list
-    def get_buckets_list(self):
-        self.list = []
-
-        for i in self.get_buckets():
+    # Return low detail level
+    def get_detail_low(self):
+        for i in self.info:
             self.list.append(
                 i.get('Name', None)
             )
 
         return self.list
+
+    # ==========================================================
+    # Get info
+    def get_info(self, DetailLevel='low'):
+
+        # Auto-generate data.
+        self._query_s3_for_bucket_data()
+
+        # Return level of data based on arguments.
+        if DetailLevel.lower() == 'high':
+            return self.info
+        else:
+            return self.get_detail_low()

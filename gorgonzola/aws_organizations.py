@@ -29,6 +29,8 @@ class Organizations(BotoSession):
         # Global Parameters.
         self.service_name = 'organizations'
         self.service_interface = 'client'
+        self.info = []
+        self.list = []
 
         # Required Parameters.
         self.role_arn = kwargs.get('RoleArn', None)
@@ -45,9 +47,7 @@ class Organizations(BotoSession):
 
     # ==========================================================
     # Generate list of ALL accounts
-    def __query_all_accounts(self):
-        self.info = []
-
+    def _query_organizations_for_account_data(self):
         resp = self.boto.list_accounts()
 
         self.info.extend(resp['Accounts'])
@@ -61,23 +61,27 @@ class Organizations(BotoSession):
             self.info.extend(resp['Accounts'])
 
     # ==========================================================
-    # Return account info (list of dicts)
-    def get_accounts(self):
-        self.__query_all_accounts()
-
-        return self.info
-
-    # ==========================================================
-    # Return account list
-    def get_accounts_list(self):
-        self.list = []
-        
-        for i in self.get_accounts():
+    # Return low detail level
+    def get_detail_low(self):
+        for i in self.info:
             self.list.append(
                 i.get('Id', None)
             )
 
         return self.list
+
+    # ==========================================================
+    # Get info.
+    def get_info(self, DetailLevel='low'):
+
+        # Auto-generate data.
+        self._query_organizations_for_account_data()
+
+        # Return level of data based on arguments.
+        if DetailLevel.lower() == 'high':
+            return self.info
+        else:
+            return self.get_detail_low()
 
     # ==========================================================
     # def get_ou(self, account):
