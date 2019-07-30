@@ -1,14 +1,20 @@
 import setuptools
 
+# Versioning Info
+major = '0'
+minor = '0'
+patch = '1'
+version = [major, minor, patch]
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="gorgonzola",
-    version="0.0.1",
+    version=".".join(version),
     author="Ben Gallagher",
     author_email="shibboleth@me.com",
-    description="AWS Boto3 helper functions for multi-account management",
+    description="AWS Boto3 helper functions for multi-account control",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/shibboleth66/gorgonzola",
