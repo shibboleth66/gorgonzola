@@ -22,7 +22,22 @@ db = gorgonzola.DynamodbTable(
 #     indent=2, default=str
 # ))
 
-print(json.dumps(
-    db.query(key='Id', value=201),
-    indent=2, default=str
-))
+# print(json.dumps(
+#     db.query(key='Id', value=201),
+#     indent=2, default=str
+# ))
+
+
+item = {
+    'Id': 3000,
+    'Title': '3000 Ace Bike',
+    'Description': '3000 Description',
+    'BicycleType': 'TimeTrial'
+}
+
+# print(json.dumps(db.put_item(item), indent=2, default=str))
+
+resp = db.put_item(
+    item=item
+)
+print(resp)
