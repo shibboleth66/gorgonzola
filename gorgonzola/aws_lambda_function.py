@@ -37,7 +37,7 @@ class LambdaFunction(BotoSession):
 
     # Invoke specified function
     my_function = LambdaFunction(
-        RoleArn='arn:aws:iam::123456789012:role/OrganizationAccountAccessRole',
+        RoleArn='arn:aws:iam::123456789012:role/MyRole',
         FunctionName='WorldsBestFunction'
     )
 
