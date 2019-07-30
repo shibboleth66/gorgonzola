@@ -17,6 +17,19 @@ class IAMRoles(BotoSession):
     ----------
     get_roles(DetailLevel='low')
         Returns list of IAM Roles
+
+    Examples
+    ----------
+
+    # Invoke specified function
+    iam_roles = IAMRoles(
+        RoleArn='arn:aws:iam::123456789012:role/MyRole'
+    )
+
+    # Capture results.
+    role_list = iam_roles.get_roles(
+        DetailLevel='high'
+    )
     """
 
     # ==========================================================
