@@ -10,12 +10,12 @@ arn = "{}:{}:{}/{}".format(
     )
 
 
-roles = gorgonzola.Roles(
+roles = gorgonzola.IAMRoles(
     RoleArn=arn
 )
 
 for detail_level in ['low', 'high']:
 
-    print(roles.get_info(
+    print(roles.get_roles(
         DetailLevel=detail_level
     ))
