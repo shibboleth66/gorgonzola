@@ -3,31 +3,46 @@ from .aws_boto_session import BotoSession
 
 
 class LambdaFunction(BotoSession):
-    """Invoke Lambda Function
+    """Simple Invocation of AWS Lambda
 
-    Invoke Lambda function in any account.
-    Class uses existing Gonzola classes to assume passed role.
+    Automatically invoke function in specified account.
 
-    **kwargs:
-        RoleArn (string, required): ARN of IAM Role to assume.
-        FunctionName (string, required): ARN or Name of Lambda function
-        RegionName (string, optional): AWS Region
-            Defaults to 'eu-west-2'
-        Payload (dict, optional): Event payload passed to function
-            Defaults to empty dict
-        InvocationType (string, optional): Synchronous or Asynchronous invocation.
-            Can be Event/RequestResponse/DryRun
-            Defaults to 'RequestResponse'
+    Account ID is specified in ARN of role passed as argument.
 
-    Examples:
-        my_function = LambdaFunction(
-            RoleArn='arn:aws:iam::123456789012:role/OrganizationAccountAccessRole',
-            FunctionName='WorldsBestFunction'
-        )
+    Parameters
+    ----------
+    RoleArn :str
+        ARN of AWS IAM Role.
+    FunctionName : str
+        ARN or Name of Lambda function
+    RegionName : str, optional
+        Lowercase ID of AWS region
+        Defaults to 'eu-west-2'
+    Event : dict, optional
+        Event payload passed to function
+        Defaults to empty dict
+    InvocationType : str, optional
+        Function Invocation, either 'Event' or 'RequestResponse'
+        Defaults to 'RequestResponse'
 
-        my_function.invoke()
+    Methods
+    ----------
+    get_response()
+        Return any results as JSON.
+        For 'RequestResponse', returns response from function.
+        For 'Event', returns StatusCode and RequestId
 
-        results = my_function.get_response()
+    Examples
+    ----------
+
+    # Invoke specified function
+    my_function = LambdaFunction(
+        RoleArn='arn:aws:iam::123456789012:role/OrganizationAccountAccessRole',
+        FunctionName='WorldsBestFunction'
+    )
+
+    # Capture results.
+    results = my_function.get_response()
     """
 
     # ==========================================================
@@ -44,7 +59,7 @@ class LambdaFunction(BotoSession):
 
         # Optional Parameters (with defaults)
         self.region_name = kwargs.get('RegionName', 'eu-west-2')
-        self.payload = kwargs.get('Payload', {})
+        self.event = kwargs.get('Event', {})
         self.invocation_type = kwargs.get('InvocationType', 'RequestResponse')
 
         # Set parameters for super init.
@@ -70,7 +85,7 @@ class LambdaFunction(BotoSession):
             'FunctionName': self.function_name,
             'InvocationType': self.invocation_type,
             'Payload': json.dumps(
-                self.payload
+                self.event
             )
         }
 
@@ -89,4 +104,5 @@ class LambdaFunction(BotoSession):
     # ==========================================================
     # Return results object.
     def get_response(self):
+        """Return function response"""
         return self.results
