@@ -5,30 +5,35 @@ from .aws_sts_credentials import Credentials
 class BotoSession():
     """Create AWS Boto Session.
 
-    Instantiate Resource or Client session to specified IAM Role.
+    Create Boto (Resource or Client) session to specified IAM Role.
+    
     Enables access to multiple AWS accounts through STS service.
 
-    **kwargs:
-        RoleArn (string, required): ARN of AWS IAM Role
-            Formatted ARN of IAM Role
-        ServiceName (string, required): Name of AWS Service
-            Lowercase name of AWS service (as required by boto)
-        ServiceInterface (string, optional): Boto interface type
-            Either 'client' or 'resource' depending on requirement
-            Defaults to 'client'
-        RegionName (stgin, optional): AWS Region
-            Lowercase ID of AWS region
-            Defaults to 'eu-west-2'
-        Duration (integer, optional): Session Duration
-            STS session duration in seconds
-            Defaults to 900
+    Parameters
+    ----------
+    RoleArn : str
+        ARN of AWS IAM Role
+    ServiceName : str
+        Lowercase name of AWS service (as required by boto)
+    ServiceInterface : str
+        Interface type, 'client' or 'resource'
+        Defaults to 'client'
+    RegionName : str, optional
+        Lowercase ID of AWS region
+        Defaults to 'eu-west-2'
+    Duration : int, optional
+        Session Duration in seconds
+        Defaults to 900
 
-    Examples:
-        gorgonzola.Session(
-            'RoleArn': 'arn:aws:iam::123456789012:role/OrganizationAccountAccessRole',
-            'ServiceName': 'ec2',
-            'ServiceInterface': 'resource'
-        )
+    Examples
+    ----------
+
+    # Create session object.
+    my_session = gorgonzola.Session(
+        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
+        'ServiceName': 'ec2',
+        'ServiceInterface': 'resource'
+    )
     """
 
     # ==========================================================
@@ -49,11 +54,11 @@ class BotoSession():
         }
 
         # Make boto session.
-        self.__get_creds()
-        self.__get_session()
+        self._get_creds()
+        self._get_session()
 
     # ==========================================================
-    def __get_creds(self):
+    def _get_creds(self):
 
         # Set parameters for credential generation.
         params = {
@@ -68,7 +73,7 @@ class BotoSession():
         self.params.update(**creds)
 
     # ==========================================================
-    def __get_session(self):
+    def _get_session(self):
 
         # Create session object.
         self.session = boto3.session.Session(**self.params)
