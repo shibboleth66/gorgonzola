@@ -8,12 +8,12 @@ arn = "{}:{}:{}/{}".format(
         'arn:aws:iam:', account, 'role', role
     )
 
-buckets = gorgonzola.Buckets(
+buckets = gorgonzola.S3Buckets(
     RoleArn=arn
 )
 
 for detail_level in ['low', 'high']:
 
-    print(buckets.get_info(
+    print(buckets.get_buckets(
         DetailLevel=detail_level
     ))
