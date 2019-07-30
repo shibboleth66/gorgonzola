@@ -8,10 +8,10 @@ setuptools.setup(
     version="0.0.1",
     author="Ben Gallagher",
     author_email="shibboleth@me.com",
-    description="AWS Boto extension for multi-account management",
+    description="AWS Boto3 helper functions for multi-account management",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/shibboleth66/gorgonzola",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
