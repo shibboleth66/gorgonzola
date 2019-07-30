@@ -22,7 +22,7 @@ class DynamodbTable(BotoSession):
 
     Methods
     ----------
-    query(attribute=None, value=None)
+    query(key=None, value=None)
         Returns single items matching primary key values.
 
     scan(attribute=None, value=None)
@@ -32,6 +32,27 @@ class DynamodbTable(BotoSession):
     put_item(item=None)
         Write dictionary of attribute/value pairs to table.
         Dictionary must include Primary Key(s).
+
+    Examples
+    ----------
+
+    # Create class object.
+    db_table = gorgonzola.DynamoDBTable(
+        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
+        TableName='myTable'
+    )
+
+    Query for matcin items (based on key).
+    results = db_table.query(
+        key='Id',
+        value='100'
+    )
+
+    Scan for matching items (based on attribute).
+    results = db_table.scan(
+        attribute='ProductType',
+        value='Bicycle'
+    )
     """
 
     # ==========================================================
