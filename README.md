@@ -4,11 +4,11 @@ Python helper functions for AWS Boto3.
 
 ## Description
 
-Gorgonzola is a set of helper functions to simplify AWS multi-account management.
+Gorgonzola is a set of helper functions to simplify AWS multi-account control.
 
 Wrapping around AWS Boto3, Gorgonzola provides simple execution of commonly used API operations.
 
-## Links to Classes and Usage
+## Usage
 
 [ Boto Session ](docs/BotoSession.md)
 
