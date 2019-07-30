@@ -17,6 +17,22 @@ class S3Buckets(BotoSession):
     ----------
     get_buckets(DetailLevel='low')
         Returns list of S3 Buckets
+
+    Examples
+    ----------
+
+    # Create class object.
+    s3_buckets = gorgonzola.S3Buckets(
+        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole'
+    )
+
+    Return simple list of buckets.
+    buckets = s3_buckets.get_buckets()
+
+    Return detailed list of buckets.
+    buckets = s3_buckets.get_buckets(
+        DetailLevel='high'
+    )
     """
 
     # ==========================================================
