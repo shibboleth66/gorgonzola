@@ -6,7 +6,7 @@ class BotoSession():
     """Create AWS Boto Session.
 
     Create Boto (Resource or Client) session to specified IAM Role.
-    
+
     Enables access to multiple AWS accounts through STS service.
 
     Parameters
@@ -67,8 +67,8 @@ class BotoSession():
         }
 
         # Generate STS credentials.
-        creds = STSCredentials(**params).get()
-
+        creds = STSCredentials(**params).get_credentials()
+        
         # Update object parameters with credentials.
         self.params.update(**creds)
 
