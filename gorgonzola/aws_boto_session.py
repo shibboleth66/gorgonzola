@@ -1,5 +1,5 @@
 import boto3
-from .aws_sts_credentials import Credentials
+from .aws_sts_credentials import STSCredentials
 
 
 class BotoSession():
@@ -67,7 +67,7 @@ class BotoSession():
         }
 
         # Generate STS credentials.
-        creds = Credentials(**params).get()
+        creds = STSCredentials(**params).get()
 
         # Update object parameters with credentials.
         self.params.update(**creds)
