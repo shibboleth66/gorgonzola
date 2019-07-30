@@ -24,14 +24,14 @@ class STSCredentials():
     Examples
     ----------
 
-        # Create credentials object.
-        creds = gorgonzola.Credentials(
-            'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
-            'Duration': 1200
-        )
+    # Create credentials object.
+    sts = gorgonzola.Credentials(
+        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
+        'Duration': 1200
+    )
 
-        # Return credentials dictionary
-        creds.get()
+    # Return credentials dictionary
+    creds = sts.get_credentials()
     """
 
     #  ==========================================================
