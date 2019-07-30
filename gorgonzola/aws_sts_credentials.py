@@ -2,26 +2,35 @@ import boto3
 import sys
 
 
-class Credentials():
+class STSCredentials():
     """Generate STS Credentials
 
-    Assume Role using STS service to return temporary credentials.
+    Generate AWS credentials by assuming passed IAM Role.
     IAM Role must exist and be correctly formatted.
 
-    **kwargs:
-        RoleArn (string, required): ARN of AWS IAM Role
-            Formatted ARN of IAM Role
-        Duration (integer, optional): Session Duration
-            STS session duration in seconds
+    Parameters
+    ----------
+        RoleArn : str
+            ARN of AWS IAM Role
+        Duration : int, optional
+            Session Duration in seconds
             Defaults to 900
 
-    Examples:
+    Methods
+    ----------
+    get_credentials()
+        Returns dictionary of STS credentials.
+
+    Examples
+    ----------
+
+        # Create credentials object.
         creds = gorgonzola.Credentials(
-            'RoleArn': 'arn:aws:iam::123456789012:role/OrganizationAccountAccessRole',
+            'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
             'Duration': 1200
         )
 
-        Return credentials dictionary
+        # Return credentials dictionary
         creds.get()
     """
 
@@ -35,11 +44,11 @@ class Credentials():
         self.duration = kwargs.get('Duration', 900)
 
     #  ==========================================================
-    def __connect_to_sts(self):
+    def _connect_to_sts(self):
         self.boto = boto3.client('sts')
 
     #  ==========================================================
-    def __assume_role(self):
+    def _assume_role(self):
 
         # Set parameters for role assumption.
         params = {
@@ -58,10 +67,11 @@ class Credentials():
 
     #  ==========================================================
     # Generate credentials.
-    def get(self):
+    def get_credentials(self):
+        """Generate and return Credentials"""
 
-        self.__connect_to_sts()
-        self.__assume_role()
+        self._connect_to_sts()
+        self._assume_role()
 
         return {
             'aws_access_key_id': self.creds['AccessKeyId'],
