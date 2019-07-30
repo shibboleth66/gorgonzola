@@ -1,7 +1,23 @@
 from .aws_boto_session import BotoSession
 
 
-class Roles(BotoSession):
+class IAMRoles(BotoSession):
+    """Query IAM for Role information.
+
+    Generate list of roles found in account.
+
+    Account ID is specified in ARN of role passed as argument.
+
+    Parameters
+    ----------
+    RoleArn : str
+        ARN of AWS IAM Role
+
+    Methods
+    ----------
+    get_roles(DetailLevel='low')
+        Returns list of IAM Roles
+    """
 
     # ==========================================================
     # Initialize Roles object.
@@ -41,7 +57,7 @@ class Roles(BotoSession):
 
     # ==========================================================
     # Return low detail level
-    def get_detail_low(self):
+    def _get_detail_low(self):
 
         for i in self.info:
             self.list.append(
@@ -51,8 +67,16 @@ class Roles(BotoSession):
         return self.list
 
     # ==========================================================
-    # Get info
-    def get_info(self, DetailLevel='low'):
+    # Get roles
+    def get_roles(self, DetailLevel='low'):
+        """Generates list of IAM Roles
+
+        Parameters
+        ----------
+        DetailLevel : str, optional
+            Level of detail in returned list, can be 'high' or 'low'
+            Defaults to 'low'
+        """
 
         # Auto-generate data.
         self._query_iam_for_role_data()
@@ -61,4 +85,4 @@ class Roles(BotoSession):
         if DetailLevel.lower() == 'high':
             return self.info
         else:
-            return self.get_detail_low()
+            return self._get_detail_low()
