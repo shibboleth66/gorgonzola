@@ -2,24 +2,36 @@ from .aws_boto_session import BotoSession
 
 
 class Organizations(BotoSession):
-    """List AWS Organizations Accounts
+    """Simple Operations for AWS Organizations
 
-    Generate full list of Accunts present within an AWS Organization.
+    Return account/subscription information from Organizations.
 
-    **kwargs:
-        RoleArn (string, required): ARN of AWS IAM Role
-            Formatted ARN of IAM Role.
+    Account ID is specified in ARN of role passed as argument.
 
-    Examples:
+   Parameters
+    ----------
+    RoleArn :str
+        ARN of AWS IAM Role.
+
+    Methods
+    ----------
+    get_accounts(DetailLevel='low')
+
+    Examples
+    ----------
+
+        # Create class object.
         orgs = gorgonzola.Organizations(
-            'RoleArn': 'arn:aws:iam::123456789012:role/OrganizationAccountAccessRole'
+            'RoleArn': 'arn:aws:iam::123456789012:role/MyRole'
         )
 
-        Return list of dictionaries, each containing Account Information.
-        orgs.get_accounts()
+        Return simple list of account Ids.
+        accounts = orgs.get_accounts()
 
-        Return list of Account IDs.
-        orgs.get_accounts_list()
+        Return detailed list of account Ids.
+        accounts = orgs.get_accounts(
+            DetailLevel='high'
+        )
     """
 
     # ==========================================================
@@ -62,7 +74,7 @@ class Organizations(BotoSession):
 
     # ==========================================================
     # Return low detail level
-    def get_detail_low(self):
+    def _get_detail_low(self):
         for i in self.info:
             self.list.append(
                 i.get('Id', None)
@@ -71,8 +83,16 @@ class Organizations(BotoSession):
         return self.list
 
     # ==========================================================
-    # Get info.
-    def get_info(self, DetailLevel='low'):
+    # Get accounts.
+    def get_accounts(self, DetailLevel='low'):
+        """Generate list of Organizational Accounts
+
+        Parameters
+        ----------
+        DetailLevel : str, optional
+            Level of detail in returned list, can be 'high' or 'low'
+            Defaults to 'low'
+        """
 
         # Auto-generate data.
         self._query_organizations_for_account_data()
@@ -81,7 +101,14 @@ class Organizations(BotoSession):
         if DetailLevel.lower() == 'high':
             return self.info
         else:
-            return self.get_detail_low()
+            return self._get_detail_low()
+
+    # ==========================================================
+    # Get account.
+    # def get_account(self, id=None):
+
+    #     self.get_ou(_structure)
+    #     self.get_tags()
 
     # ==========================================================
     # def get_ou(self, account):
