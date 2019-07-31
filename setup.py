@@ -3,7 +3,7 @@ import setuptools
 # Versioning Info
 major = '0'
 minor = '0'
-patch = '1'
+patch = '2'
 version = [major, minor, patch]
 
 with open("README.md", "r") as fh:
