@@ -11,4 +11,4 @@ Wrapping around AWS Boto3, Gorgonzola provides simple execution of commonly used
 
 ## Documentation
 
-For further information, please see the [ documentation ](https://github.com/shibboleth66/gorgonzola/docs/Content.md)
+For further information, please see the [ documentation ](https://github.com/shibboleth66/gorgonzola/docs/Contents.md)
