@@ -38,7 +38,7 @@ regions = ssm_parameters.get_regions(
 
 ### Parameters
 
-* DetailLevel (string) -- defines level of information returned
+* **DetailLevel** (string) -- defines level of information returned
 
 ### Return Type
 
