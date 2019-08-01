@@ -1,14 +1,45 @@
-## SSM Global Parameters
+# SSM Global Parameters
 
-*Get list of Global Regions*
+## **class** SSMGlobalParameters
+
+Queries SSM Global listings to return specified information.
+
+### Request Syntax
+
 ```python
-import gorgonzola
-
 ssm_parameters = gorgonzola.SSMGlobalParameters(
-    RoleArn='arn:aws:iam::123456789012:role/MyRole'
-)
-
-regions = ssm_parameters.get_regions(
-    DetailLevel='high'
+    RoleArn='string'
 )
 ```
+
+### Parameters
+
+* **RoleArn** (string) -- [REQUIRED]
+
+    ARN of IAM Role to be assumed during session creation.
+
+### Return Type
+
+**object**
+
+### Methods
+
+* [get_regions()](#-get_regions())
+
+> ## get_regions()
+
+### Request Syntax
+
+```python
+regions = ssm_parameters.get_regions(
+    DetailLevel='low'|'high'
+)
+```
+
+### Parameters
+
+* DetailLevel (string) -- defines level of information returned
+
+### Return Type
+
+**list**
