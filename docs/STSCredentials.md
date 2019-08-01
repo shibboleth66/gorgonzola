@@ -49,8 +49,8 @@ credentials = sts_credentials.get_credentials()
 
 ```json
 {
-    'aws_access_key_id': 'string',
-    'aws_secret_access_key': 'string',
-    'aws_session_token': 'string'
+    "aws_access_key_id": "string",
+    "aws_secret_access_key": "string",
+    "aws_session_token": "string"
 }
 ```
