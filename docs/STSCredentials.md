@@ -4,6 +4,8 @@
 
 Uses Boto3 `sts` service to assume specified role and return temporay credentials.
 
+Caller must have permission to assume the specified Role.
+
 ### Request Syntax
 
 ```python
