@@ -8,9 +8,15 @@ arn = "{}:{}:{}/{}".format(
         'arn:aws:iam:', account, 'role', role
     )
 
+payload = {
+    "Surname": 'Bond',
+    "Givenname": 'James'
+}
+
 func = gorgonzola.LambdaFunction(
     RoleArn=arn,
-    FunctionName='testicles'
+    FunctionName='testicles',
+    Event=payload
 )
 
 print(func.get_response())
