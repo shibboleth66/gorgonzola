@@ -4,7 +4,9 @@
 
 Object representing an authenticated Boto3 session.
 
-Session can be created in any account/subscription in which the caller has permission to assume the specified Role.
+Session can be created in any account/subscription indicated by RoleArn.
+
+Caller must have permission to assume the specified Role.
 
 
 ### Request Syntax

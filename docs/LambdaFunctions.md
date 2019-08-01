@@ -4,7 +4,7 @@
 
 Automatically invokes specified Lambda Function.
 
-Caller must have permission to assume specified role.
+Caller must have permission to assume the specified Role.
 
 ### Request Syntax
 
