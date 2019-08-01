@@ -12,10 +12,10 @@ Caller must have permission to assume the specified Role.
 ### Request Syntax
 
 ```python
-boto_session = gorgonzola.Session(
+boto_session = gorgonzola.BotoSession(
     RoleArn='string'
     ServiceName='string',
-    ServiceInterface='string',
+    ServiceInterface='client'|'resource',
     RegionName='string',
     Duration='integer'
 )
