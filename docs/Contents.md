@@ -15,9 +15,9 @@ Wrapping around AWS Boto3, Gorgonzola provides simple execution of commonly used
 
 [ STS Credentials ](STSCredentials.md)
 
-[ SSM Global Parameters ](SSMGlobalParameters)
+[ SSM Global Parameters ](SSMGlobalParameters.md)
 
-[ Lambda Functions ](LambdaFunctions)
+[ Lambda Functions ](LambdaFunctions.md)
 
 [ Organizations ](Organizations.md)
 
