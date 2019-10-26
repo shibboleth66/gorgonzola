@@ -11,5 +11,5 @@ python setup.py sdist bdist_wheel
 
 # Upload to PyPi
 twine upload \
---repository-url "https://test.pypi.org/legacy/" \
-"${working_dir}/dist/*"
+    --repository-url "https://test.pypi.org/legacy/" \
+    "${working_dir}/dist/*"
