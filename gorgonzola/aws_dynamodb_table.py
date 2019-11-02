@@ -38,7 +38,7 @@ class DynamodbTable(BotoSession):
 
     # Create class object.
     db_table = gorgonzola.DynamoDBTable(
-        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
+        RoleArn='arn:aws:iam::123456789012:role/MyRole',
         TableName='myTable'
     )
 

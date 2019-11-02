@@ -22,7 +22,7 @@ class Organizations(BotoSession):
 
         # Create class object.
         orgs = gorgonzola.Organizations(
-            'RoleArn': 'arn:aws:iam::123456789012:role/MyRole'
+            RoleArn=arn:aws:iam::123456789012:role/MyRole'
         )
 
         Return simple list of account Ids.

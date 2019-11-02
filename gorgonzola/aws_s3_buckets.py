@@ -23,7 +23,7 @@ class S3Buckets(BotoSession):
 
     # Create class object.
     s3_buckets = gorgonzola.S3Buckets(
-        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole'
+        RoleArn=arn:aws:iam::123456789012:role/MyRole'
     )
 
     Return simple list of buckets.

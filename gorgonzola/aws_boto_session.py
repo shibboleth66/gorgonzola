@@ -30,9 +30,9 @@ class BotoSession():
 
     # Create session object.
     my_session = gorgonzola.Session(
-        'RoleArn': 'arn:aws:iam::123456789012:role/MyRole',
-        'ServiceName': 'ec2',
-        'ServiceInterface': 'resource'
+        RoleArn=arn:aws:iam::123456789012:role/MyRole',
+        ServiceName='ec2',
+        ServiceInterface='resource'
     )
     """
 
