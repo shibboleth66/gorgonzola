@@ -3,15 +3,16 @@ import setuptools
 # Versioning Info
 major = '0'
 minor = '1'
-patch = '0'
-version = [major, minor, patch]
+patch = '1'
+# version = [major, minor, patch]
+version = ".".join(major, minor, patch)
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="gorgonzola",
-    version=".".join(version),
+    version=version,
     author="Ben Gallagher",
     author_email="shibboleth@me.com",
     description="AWS Boto3 helper functions for multi-account control",
