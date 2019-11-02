@@ -37,6 +37,9 @@ class BotoSession():
 
     # Reference boto resource within session object.
     ec2 = session.boto
+
+    # use boto commands as normal.
+    response = ec2.describe_instances()
     """
 
     # ==========================================================
