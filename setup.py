@@ -4,8 +4,9 @@ import setuptools
 major = '0'
 minor = '1'
 patch = '1'
-# version = [major, minor, patch]
-version = ".".join(major, minor, patch)
+
+# Set semantic version
+version = ".".join([major, minor, patch])
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
