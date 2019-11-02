@@ -29,11 +29,14 @@ class BotoSession():
     ----------
 
     # Create session object.
-    my_session = gorgonzola.Session(
+    session = gorgonzola.BotoSession(
         RoleArn=arn:aws:iam::123456789012:role/MyRole',
         ServiceName='ec2',
         ServiceInterface='resource'
     )
+
+    # Reference boto resource within session object.
+    ec2 = session.boto
     """
 
     # ==========================================================
@@ -68,7 +71,7 @@ class BotoSession():
 
         # Generate STS credentials.
         creds = STSCredentials(**params).get_credentials()
-        
+
         # Update object parameters with credentials.
         self.params.update(**creds)
 
