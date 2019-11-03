@@ -48,7 +48,7 @@ regions = ssm_parameters.get_regions(
 
 ```json
 [
-    'eu-west-1'
+    "eu-west-1"
 ]
 ```
 
@@ -56,12 +56,12 @@ regions = ssm_parameters.get_regions(
 ```json
 [
     {
-        'Name': 'string',
-        'Type': 'string',
-        'Value': 'string',
-        'Version': 'integer',
-        'LastModifiedDate': 'datetime',
-        'ARN': 'string'
+        "Name": "string",
+        "Type": "string",
+        "Value": "string",
+        "Version": "integer",
+        "LastModifiedDate": "datetime",
+        "ARN": "string"
     }
 ]
 ```

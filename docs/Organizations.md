@@ -36,7 +36,7 @@ organizations = gorgonzola.Organizations(
 
 ```python
 accounts = organizations.get_accounts(
-    DetailLevel='low'|'high'
+    DetailLevel="low"|"high"
 )
 ```
 
@@ -56,7 +56,7 @@ accounts = organizations.get_accounts(
 
 ```json
 [
-    '0123456789012'
+    "0123456789012"
 ]
 ```
 
@@ -64,13 +64,13 @@ accounts = organizations.get_accounts(
 ```json
 [
     {
-        'Id': 'string',
-        'Arn': 'string',
-        'Email': 'string',
-        'Name': 'string',
-        'Status': 'string', 
-        'JoinedMethod': 'string',
-        'JoinedTimestamp': 'datetime'
+        "Id": "string",
+        "Arn": "string",
+        "Email": "string",
+        "Name": "string",
+        "Status": "string", 
+        "JoinedMethod": "string",
+        "JoinedTimestamp": "datetime"
     }
 ]
 ```
