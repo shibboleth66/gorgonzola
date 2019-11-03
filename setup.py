@@ -3,7 +3,7 @@ import setuptools
 # Versioning Info
 major = '0'
 minor = '1'
-patch = '1'
+patch = '2'
 
 # Set semantic version
 version = ".".join([major, minor, patch])
