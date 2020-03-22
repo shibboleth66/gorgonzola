@@ -3,7 +3,7 @@ import setuptools
 # Versioning Info
 major = '0'
 minor = '1'
-patch = '2'
+patch = '3'
 
 # Set semantic version
 version = ".".join([major, minor, patch])
@@ -26,6 +26,9 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+        'boto3>=1.9.96'
+    ]
 )
 
 # Execute this with the following command.
