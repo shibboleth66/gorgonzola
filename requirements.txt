@@ -1,1 +1,6 @@
-boto3>=1.9.96
+# boto3>=1.9.96
+boto3
+twine
+setuptools
+wheel
+pylama
