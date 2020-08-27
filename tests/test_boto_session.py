@@ -1,5 +1,5 @@
-import sys
-sys.path.insert(0, '../gorgonzola')
+import os, sys
+sys.path.append(os.path.dirname(os.getcwd()))
 import gorgonzola
 
 account = '124387271761'
@@ -8,12 +8,12 @@ arn = "{}:{}:{}/{}".format(
         'arn:aws:iam:', account, 'role', role
     )
 
-session = gorgonzola.BotoSession(
+iam = gorgonzola.BotoSession(
     RoleArn=arn,
     ServiceName='iam'
-)
+).get()
 
-iam = session.boto
+# iam = session.boto
 
 resp = iam.list_roles()
 
