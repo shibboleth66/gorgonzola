@@ -95,3 +95,7 @@ class BotoSession():
             raise Exception("Unknown Service Interface: {}".format(
                 self.service_interface
             ))
+
+    # ==========================================================
+    def get(self):
+        return self.boto
