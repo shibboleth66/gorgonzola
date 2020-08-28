@@ -54,7 +54,7 @@ class BotoSession():
         self.service_interface = kwargs.get('ServiceInterface', 'client')
         self.duration = kwargs.get('Duration', 900)
 
-        # Begin params doctionary.
+        # Begin params dictionary.
         self.params = {
             "region_name": self.region_name
         }
